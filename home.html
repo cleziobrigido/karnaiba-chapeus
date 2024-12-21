@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Chapéus Karnaíba</title>
+    <title>Chapéus Karnaíba</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         /* Reset de estilos e definição da fonte */
@@ -15,7 +15,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: url('image/.png') no-repeat center center fixed;
+            background: url('tela1.png') no-repeat center center fixed;
             background-size: cover;
             color: #333;
             line-height: 1.6;
@@ -284,68 +284,72 @@
         <div class="section active" id="catalog-section">
             <div class="catalog">
                 <div class="hat-item" onclick="expandImage('images/hat1.jpg')">
-                    <img src="image/chapeu1.jpg" alt="Chapéu 1">
+                    <img src="chapeu1.jpg" alt="Chapéu 1">
                     <h2>Chapéu Estiloso 1</h2>
                     <p>Este é um chapéu elegante, perfeito para um estilo descontraído.</p>
                 </div>
                 <div class="hat-item" onclick="expandImage('images/hat2.jpg')">
-                    <img src="image/chapeu2.jpg" alt="Chapéu 2">
+                    <img src="chapeu2.jpg" alt="Chapéu 2">
                     <h2>Chapéu Estiloso 2</h2>
                     <p>Chapéu com um design único, ideal para qualquer ocasião especial.</p>
                 </div>
                 <div class="hat-item" onclick="expandImage('images/hat3.jpg')">
-                    <img src="image/chapeu3.jpg" alt="Chapéu 3">
+                    <img src="chapeu3.jpg" alt="Chapéu 3">
                     <h2>Chapéu Estiloso 3</h2>
-                    <p>Um chapéu clássico, sempre na moda.</p>
+                    <p>Chapéu sofisticado, ideal para ocasiões formais ou eventos importantes.</p>
                 </div>
             </div>
         </div>
 
         <div class="section" id="sobre-section">
-            <h2>Sobre a Loja</h2>
-            <p>Bem-vindo à Chapéus Karnaíba! Nossa loja oferece chapéus exclusivos para todos os estilos.</p>
+            <h2>Sobre Nós</h2>
+            <p>Chapéus Karnaíba é uma empresa especializada em chapéus de alta qualidade...</p>
         </div>
 
         <div class="section" id="contato-section">
             <h2>Contato</h2>
-            <p>Entre em contato conosco pelo número de WhatsApp disponível.</p>
+            <p>Entre em contato conosco através do nosso WhatsApp.</p>
         </div>
 
-        <button class="whatsapp-btn" onclick="window.location.href='https://wa.me/5511999999999'">WhatsApp</button>
+        <div class="expanded-img" id="expanded-img">
+            <img src="" alt="Imagem Expandida">
+            <button class="close" onclick="closeExpandedImage()">X</button>
+        </div>
     </div>
 
-    <div class="expanded-img" id="expanded-img">
-        <img id="expanded-img-src" src="" alt="Chapéu Expandido">
-        <button class="close" onclick="closeImage()">X</button>
-    </div>
+    <button class="whatsapp-btn" onclick="window.location.href='https://wa.me/1234567890'">
+        Fale Conosco no WhatsApp
+    </button>
 
     <script>
-        function expandImage(src) {
-            document.getElementById('expanded-img-src').src = src;
-            document.getElementById('expanded-img').classList.add('show');
+        document.getElementById('catalog-btn').addEventListener('click', function() {
+            showSection('catalog');
+        });
+        document.getElementById('sobre-btn').addEventListener('click', function() {
+            showSection('sobre');
+        });
+        document.getElementById('contato-btn').addEventListener('click', function() {
+            showSection('contato');
+        });
+
+        function showSection(section) {
+            document.querySelectorAll('.section').forEach(function(sec) {
+                sec.classList.remove('active');
+            });
+
+            document.getElementById(section + '-section').classList.add('active');
         }
 
-        function closeImage() {
+        function expandImage(src) {
+            const expandedImage = document.getElementById('expanded-img');
+            const img = expandedImage.querySelector('img');
+            img.src = src;
+            expandedImage.classList.add('show');
+        }
+
+        function closeExpandedImage() {
             document.getElementById('expanded-img').classList.remove('show');
         }
-
-        document.getElementById('catalog-btn').addEventListener('click', function() {
-            document.getElementById('catalog-section').classList.add('active');
-            document.getElementById('sobre-section').classList.remove('active');
-            document.getElementById('contato-section').classList.remove('active');
-        });
-
-        document.getElementById('sobre-btn').addEventListener('click', function() {
-            document.getElementById('sobre-section').classList.add('active');
-            document.getElementById('catalog-section').classList.remove('active');
-            document.getElementById('contato-section').classList.remove('active');
-        });
-
-        document.getElementById('contato-btn').addEventListener('click', function() {
-            document.getElementById('contato-section').classList.add('active');
-            document.getElementById('catalog-section').classList.remove('active');
-            document.getElementById('sobre-section').classList.remove('active');
-        });
     </script>
 </body>
 </html>
