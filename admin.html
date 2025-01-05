@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração - Chapéus Karnaíba</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 30px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        img, video {
+            max-width: 200px;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Administração - Chapéus Karnaíba</h1>
+    <form id="hatForm">
+        <label for="name">Nome do Chapéu:</label>
+        <input type="text" id="name" required>
+
+        <label for="description">Descrição:</label>
+        <textarea id="description" required></textarea>
+
+        <label for="imageFile">Imagem do Chapéu:</label>
+        <input type="file" id="imageFile" accept="image/*">
+
+        <label for="videoFile">Vídeo do Chapéu:</label>
+        <input type="file" id="videoFile" accept="video/*">
+
+        <button type="submit">Adicionar Chapéu</button>
+    </form>
+
+    <table id="hatTable">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Imagem</th>
+                <th>Vídeo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dados serão preenchidos aqui -->
+        </tbody>
+    </table>
+
+    <script>
+        const hatForm = document.getElementById('hatForm');
+        const hatTable = document.getElementById('hatTable').querySelector('tbody');
+
+        function loadHats() {
+            const hats = JSON.parse(localStorage.getItem('hats')) || [];
+            hatTable.innerHTML = '';
+            hats.forEach((hat, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${hat.name}</td>
+                    <td>${hat.description}</td>
+                    <td>
+                        ${hat.image ? `<img src="${hat.image}" alt="Imagem de ${hat.name}" />` : 'Nenhuma imagem'}
+                    </td>
+                    <td>
+                        ${hat.video ? `<video controls src="${hat.video}"></video>` : 'Nenhum vídeo'}
+                    </td>
+                    <td>
+                        <button class="delete-btn" data-index="${index}">Excluir</button>
+                    </td>
+                `;
+                hatTable.appendChild(row);
+            });
+        }
+
+        hatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const description = document.getElementById('description').value;
+            const imageFile = document.getElementById('imageFile').files[0];
+            const videoFile = document.getElementById('videoFile').files[0];
+
+            const hats = JSON.parse(localStorage.getItem('hats')) || [];
+            const newHat = { name, description };
+
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    newHat.image = e.target.result; // Base64 da imagem
+                    if (videoFile) {
+                        const videoReader = new FileReader();
+                        videoReader.onload = function (ev) {
+                            newHat.video = ev.target.result; // Base64 do vídeo
+                            hats.push(newHat);
+                            localStorage.setItem('hats', JSON.stringify(hats));
+                            loadHats();
+                            hatForm.reset();
+                        };
+                        videoReader.readAsDataURL(videoFile);
+                    } else {
+                        hats.push(newHat);
+                        localStorage.setItem('hats', JSON.stringify(hats));
+                        loadHats();
+                        hatForm.reset();
+                    }
+                };
+                reader.readAsDataURL(imageFile);
+            } else if (videoFile) {
+                const videoReader = new FileReader();
+                videoReader.onload = function (e) {
+                    newHat.video = e.target.result;
+                    hats.push(newHat);
+                    localStorage.setItem('hats', JSON.stringify(hats));
+                    loadHats();
+                    hatForm.reset();
+                };
+                videoReader.readAsDataURL(videoFile);
+            }
+        });
+
+        hatTable.addEventListener('click', (e) => {
+            if (e.target.classList.contains('delete-btn')) {
+                const index = e.target.getAttribute('data-index');
+                const hats = JSON.parse(localStorage.getItem('hats')) || [];
+                hats.splice(index, 1);
+                localStorage.setItem('hats', JSON.stringify(hats));
+                loadHats();
+            }
+        });
+
+        loadHats();
+    </script>
+</body>
+</html>
