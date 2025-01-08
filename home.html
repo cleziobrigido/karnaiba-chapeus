@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapéus Karnaíba</title>
+    <title>Chapéus Karnaíba - Elegância e Estilo</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Reset de estilos e definição da fonte */
+        /* Reset e fonte */
         * {
             margin: 0;
             padding: 0;
@@ -15,278 +15,189 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: url('image/fundo.jpg') no-repeat center center fixed;
-            background-size: cover;
+            background: #f9f9f9;
             color: #333;
             line-height: 1.6;
         }
 
-        /* Barra lateral */
-        .sidebar {
-            background-color: #000;
-            color: #fff;
-            width: 250px;
-            height: 100%;
-            padding: 30px 20px;
-            position: fixed;
-            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            border-top-right-radius: 15px;
-            border-bottom-right-radius: 15px;
-        }
-
-        .sidebar h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            margin: 20px 0;
-            font-size: 1.2rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .sidebar ul li:hover {
-            background-color: #444;
-            transform: translateX(5px);
-        }
-
-        .sidebar ul li.active {
-            background-color: #333;
-            font-weight: 600;
-        }
-
-        /* Conteúdo principal */
-        .content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-
+        /* Header */
         header {
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), 
+                        url('image/fundo.jpg') no-repeat center center/cover;
+            height: 70vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            margin-bottom: 2rem;
+            color: #fff;
         }
 
-        h1 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: #090707;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 1s ease-out;
+        header h1 {
+            font-size: 4rem;
+            text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.7);
+            animation: fadeIn 1.5s ease-in-out;
         }
 
         @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Seção do Catálogo */
+        .catalog-section {
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        .catalog-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #444;
         }
 
         .catalog {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* Alterado para 4 colunas */
-            gap: 1rem;
-            justify-items: center;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
 
         .hat-item {
-            background-color: white;
-            padding: 20px;
-            width: 300px;
-            height: 450px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
             text-align: center;
-            position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .hat-item:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
         }
 
         .hat-item img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
-            border-radius: 8px;
-            cursor: pointer;
         }
 
-        .hat-item h2 {
-            font-size: 1.3rem;
-            margin-top: 1rem;
-            font-weight: 500;
-            color: #555;
-        }
-
-        .hat-item p {
-            font-size: 1rem;
-            color: #777;
-            margin-top: 0.5rem;
-            font-weight: 300;
-        }
-
-        .whatsapp-btn-item {
-            position: absolute;
-            bottom: 60px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #25D366;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 1rem;
-            font-weight: bold;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .whatsapp-btn-item:hover {
-            background-color: #128C7E;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            width: 80%;
-            max-width: 700px;
-            background: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-        }
-
-        .modal-content iframe {
-            width: 100%;
-            height: 400px;
-            border: none;
-            border-radius: 8px;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 20px;
-            cursor: pointer;
+        .hat-item h3 {
+            font-size: 1.8rem;
+            margin: 1.5rem 0 0.5rem;
             color: #333;
         }
 
-        /* Botão Falar com os Consultores */
-        .consultores-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #09e96a;
-            color: #fff;
-            padding: 15px 25px;
+        .hat-item p {
+            color: #666;
+            margin-bottom: 1rem;
             font-size: 1rem;
-            border-radius: 50px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
         }
 
-        .consultores-btn:hover {
-            background-color: #0056b3;
+        .whatsapp-btn-item {
+            display: inline-block;
+            background: linear-gradient(to right, #25D366, #128C7E);
+            color: #fff;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 25px;
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .whatsapp-btn-item:hover {
+            background: #128C7E;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: #fff;
+            padding: 2rem 1rem;
+            text-align: center;
+            font-size: 1rem;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: #25D366;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h2>Menu</h2>
-        <ul>
-            <li class="active">Catálogo</li>
-            <li>Sobre</li>
-            <li>Contato</li>
-        </ul>
-    </div>
+    <!-- Header -->
+    <header>
+        <h1>Chapéus Karnaíba</h1>
+    </header>
 
-    <div class="content">
-        <header>
-            <h1>Chapéus Karnaíba</h1>
-        </header>
+    <!-- Seção do Catálogo -->
+    <section class="catalog-section">
+        <h2>Conheça Nossa Coleção</h2>
+        <div class="catalog" id="catalog"></div>
+    </section>
 
-        <div class="catalog"></div>
-
-        <div class="modal" id="modal">
-            <div class="modal-content">
-                <span class="close-modal" onclick="closeModal()">×</span>
-                <iframe id="video-frame" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <button class="consultores-btn" onclick="window.open('https://wa.me/5588994518112', '_blank')">Falar com os Consultores</button>
-    </div>
+    <!-- Footer -->
+    <footer>
+        © 2025 Chapéus Karnaíba - Desenvolvido por <a href="https://wa.me/5588994518112" target="_blank">Nosso Time</a>
+    </footer>
 
     <script>
-        // Função para abrir o modal
-        function openModal(videoFile) {
-            const modal = document.getElementById('modal');
-            const iframe = document.getElementById('video-frame');
-            iframe.src = videoFile;
-            modal.style.display = 'flex';
+        // Dados de chapéus
+        const hats = [
+        
+        {
+            name: "Chapéu Panamá",
+            description: "Elegância para todas as ocasiões.",
+            imageUrl: "./chapeu1.jpg",
+        },
+        {
+            name: "Chapéu de Palha",
+            description: "Ideal para o verão.",
+            imageUrl: "./chapeu2.jpg",
+        },
+        {
+            name: "Chapéu Social",
+            description: "Estilo para eventos formais.",
+            imageUrl: "./chapeu3.jpg",
+        },
+        {
+            name: "Chapéu Cowboy",
+            description: "O clássico do campo.",
+            imageUrl: "./chapeu4.jpg",
         }
+        
+        
+    ];
 
-        // Função para fechar o modal
-        function closeModal() {
-            const modal = document.getElementById('modal');
-            const iframe = document.getElementById('video-frame');
-            iframe.src = '';
-            modal.style.display = 'none';
-        }
-
-        // Função para carregar chapéus na página principal
+        // Carregar chapéus
         function loadHats() {
-            const hats = JSON.parse(localStorage.getItem('hats')) || [];
-            const catalog = document.querySelector('.catalog');
+            const catalog = document.getElementById('catalog');
             catalog.innerHTML = '';
-
-            hats.forEach((hat) => {
+            hats.forEach(hat => {
                 const hatItem = document.createElement('div');
                 hatItem.classList.add('hat-item');
                 hatItem.innerHTML = `
-                    <img src="${hat.imageUrl}" alt="${hat.name}" onclick="openModal('${hat.videoUrl}')">
-                    <h2>${hat.name}</h2>
+                    <img src="${hat.imageUrl}" alt="${hat.name}">
+                    <h3>${hat.name}</h3>
                     <p>${hat.description}</p>
-                    <button class="whatsapp-btn-item">WhatsApp</button>
+                    <a href="https://wa.me/5588994518112" target="_blank" class="whatsapp-btn-item">Comprar Agora</a>
                 `;
                 catalog.appendChild(hatItem);
             });
         }
 
-        // Carregar chapéus na inicialização
+        // Inicialização
         loadHats();
     </script>
 </body>
